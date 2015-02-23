@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<!-- JP Vermeer - Angular.JS/Bootstrap/JQuery? Sample Code / Vermeer.ca/site -->
+  <head>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/siteDOM.js"></script>
+   	<link rel="stylesheet" type="text/css" href="css/style.css" />
+   	<link rel="stylesheet" href="http://daneden.github.io/animate.css/animate.min.css">
+  </head>
+  
+  <body ng-app="vaSite"> 
+    <div ng-controller="vaSiteController as vaSite">
+	  <header class="site__header island">
+  	  	<div class="wrap">
+   	      <span id="heading" style="display: block;" class=""><h1 class="site__title mega">Vermeer.ca</h1></span>
+    	  <span id="animationSandbox" style="display: block;width:101%;" class="">
+            <p ng-hide="vaSite.getActiveMenu()"><b>Software Design and Development</b></p>		
+		    <p ng-show="vaSite.getActiveMenu()"><b>{{vaSite.getActiveMenu()}}&nbsp;&nbsp;<a href="#" ng-click="vaSite.setActiveMenu('')">X</a></b></p>
+		  </span>
+        </div>
+      </header>
+    
+ 	  <nav class="{{vaSite.getActiveMenu()}}" ng-click="$event.preventDefault()" ng-repeat="concept in vaSite.concepts">
+	    <a class="butt js--triggerAnimation {{concept.name}}" href="#" ng-click="vaSite.setActiveMenu(concept.name)" onClick="testAnim('tada');">{{concept.tagline}}</a>	
+	  </nav>
+ 
+ 	  <div ng-hide="vaSite.getActiveMenu()" style="padding-left:30px;padding-right:30px">
+	   	<ng-include src="'inc/start.html'"></ng-include>
+ 	  </div>
+ 
+      <!--  Concept Container  -->
+      <div class="list-group" id='conceptdiv'>
+        <div class="list-group-item" ng-repeat="concept in vaSite.concepts" ng-show="vaSite.getActiveMenu() === '{{concept.name}}'"> 		
+          <!-- Concept Tabs  -->
+          <h4>{{concept.description}}</h4>
+          {{concept.notes}}<p><br>
+          <concept-tabs></concept-tabs>
+        </div>
+	  </div>
+	  
+    </div>
+  </body>
+</html>
